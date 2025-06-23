@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English & Hebrew Learning</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #f0f8ff; }
+    h1 { margin-top: 20px; }
+    .categories { margin: 20px 0; }
+    button { margin: 5px; padding: 10px 20px; font-size: 16px; }
+    .items { display: flex; flex-wrap: wrap; justify-content: center; }
+    .item { margin: 10px; width: 140px; }
+    .item img { width: 100%; height: auto; border-radius: 10px; }
+    .label { margin-top: 5px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>English & Hebrew Learning</h1>
+  <div class="categories">
+    <button onclick="showCategory('animals')">🐶 Animals</button>
+    <button onclick="showCategory('fruits')">🍎 Fruits</button>
+    <button onclick="showCategory('colors')">🎨 Colors</button>
+    <button onclick="showCategory('food')">🍔 Food</button>
+    <button onclick="showCategory('vehicles')">🚗 Vehicles</button>
+  </div>
+  <div id="items" class="items"></div>
+
+  <script>
+    const data = {
+      animals: [
+        { en: "Cat", he: "חתול", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/cat.jpg" },
+        { en: "Dog", he: "כלב", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/dog.jpg" },
+        { en: "Elephant", he: "פיל", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/elephant.jpg" },
+        { en: "Lion", he: "אריה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/lion.jpg" },
+        { en: "Zebra", he: "זברה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/zebra.jpg" },
+        { en: "Monkey", he: "קוף", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/monkey.jpg" },
+        { en: "Bear", he: "דוב", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/bear.jpg" },
+        { en: "Giraffe", he: "ג'ירפה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/giraffe.jpg" },
+        { en: "Horse", he: "סוס", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/horse.jpg" },
+        { en: "Rabbit", he: "ארנב", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/animals/rabbit.jpg" }
+      ],
+      fruits: [
+        { en: "Apple", he: "תפוח", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/apple.jpg" },
+        { en: "Banana", he: "בננה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/banana.jpg" },
+        { en: "Orange", he: "תפוז", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/orange.jpg" },
+        { en: "Grapes", he: "ענבים", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/grapes.jpg" },
+        { en: "Pineapple", he: "אננס", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/pineapple.jpg" },
+        { en: "Strawberry", he: "תות", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/strawberry.jpg" },
+        { en: "Watermelon", he: "אבטיח", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/watermelon.jpg" },
+        { en: "Mango", he: "מנגו", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/mango.jpg" },
+        { en: "Pear", he: "אגס", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/pear.jpg" },
+        { en: "Peach", he: "אפרסק", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/fruits/peach.jpg" }
+      ],
+      colors: [
+        { en: "Red", he: "אדום", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/red.jpg" },
+        { en: "Blue", he: "כחול", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/blue.jpg" },
+        { en: "Green", he: "ירוק", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/green.jpg" },
+        { en: "Yellow", he: "צהוב", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/yellow.jpg" },
+        { en: "Purple", he: "סגול", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/purple.jpg" },
+        { en: "Pink", he: "ורוד", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/pink.jpg" },
+        { en: "Black", he: "שחור", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/black.jpg" },
+        { en: "White", he: "לבן", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/white.jpg" },
+        { en: "Brown", he: "חום", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/brown.jpg" },
+        { en: "Orange", he: "כתום", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/colors/orange.jpg" }
+      ],
+      food: [
+        { en: "Pizza", he: "פיצה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/pizza.jpg" },
+        { en: "Burger", he: "המבורגר", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/burger.jpg" },
+        { en: "Pasta", he: "פסטה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/pasta.jpg" },
+        { en: "Egg", he: "ביצה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/egg.jpg" },
+        { en: "Rice", he: "אורז", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/rice.jpg" },
+        { en: "Soup", he: "מרק", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/soup.jpg" },
+        { en: "Bread", he: "לחם", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/bread.jpg" },
+        { en: "Cheese", he: "גבינה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/cheese.jpg" },
+        { en: "Ice Cream", he: "גלידה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/ice_cream.jpg" },
+        { en: "Salad", he: "סלט", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/food/salad.jpg" }
+      ],
+      vehicles: [
+        { en: "Car", he: "מכונית", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/car.jpg" },
+        { en: "Bus", he: "אוטובוס", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/bus.jpg" },
+        { en: "Bicycle", he: "אופניים", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/bicycle.jpg" },
+        { en: "Train", he: "רכבת", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/train.jpg" },
+        { en: "Plane", he: "מטוס", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/plane.jpg" },
+        { en: "Boat", he: "סירה", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/boat.jpg" },
+        { en: "Truck", he: "משאית", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/truck.jpg" },
+        { en: "Motorcycle", he: "אופנוע", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/motorcycle.jpg" },
+        { en: "Helicopter", he: "מסוק", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/helicopter.jpg" },
+        { en: "Scooter", he: "קורקינט", img: "https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/images/vehicles/scooter.jpg" }
+      ]
+    };
+
+    function showCategory(category) {
+      const container = document.getElementById('items');
+      container.innerHTML = "";
+      data[category].forEach(item => {
+        const div = document.createElement('div');
+        div.className = "item";
+        div.innerHTML = `
+          <img src="${item.img}" onclick="speak('${item.en}')">
+          <div class="label">${item.en} - ${item.he}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function speak(text) {
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'en-US';
+      window.speechSynthesis.speak(msg);
+    }
+  </script>
+</body>
+</html>
