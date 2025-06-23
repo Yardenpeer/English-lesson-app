@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English & Hebrew Learning</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #f0f0f0; padding: 20px; }
+    .category-buttons button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .category { display: none; margin-top: 30px; }
+    .item {
+      display: inline-block;
+      margin: 15px;
+    }
+    .item img {
+      width: 140px;
+      height: 140px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    .label {
+      margin-top: 8px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>English & Hebrew Learning</h1>
+  <div class="category-buttons">
+    <button onclick="showCategory('Animals')">Animals</button>
+    <button onclick="showCategory('Fruits')">Fruits</button>
+    <button onclick="showCategory('Colors')">Colors</button>
+    <button onclick="showCategory('Food')">Food</button>
+    <button onclick="showCategory('Vehicles')">Vehicles</button>
+  </div>
+  <div id="app">Loading content...</div>
+  <script>
+    const categories = ['Animals','Fruits','Colors','Food','Vehicles'];
+    async function loadContent() {
+      const res = await fetch('https://jordan-public.s3.eu-west-1.amazonaws.com/english-app/full_content.html');
+      const html = await res.text();
+      document.getElementById('app').outerHTML = html;
+    }
+    function speak(word) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+      speechSynthesis.speak(utterance);
+    }
+    function showCategory(name) {
+      document.querySelectorAll('.category').forEach(cat => cat.style.display = 'none');
+      document.getElementById(name).style.display = 'block';
+    }
+    loadContent();
+  </script>
+</body>
+</html>
