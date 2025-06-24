@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English & Hebrew Learning</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f2f2f2; }
+    .category-buttons { margin-bottom: 20px; }
+    .category-buttons button { margin: 5px; padding: 10px 15px; font-size: 16px; }
+    .item { display: inline-block; margin: 15px; }
+    .item img { width: 150px; height: 150px; border-radius: 10px; object-fit: cover; cursor: pointer; }
+    .label { margin-top: 10px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>English & Hebrew Learning</h1>
+  <div class="category-buttons">
+    <button onclick="showCategory('Animals')">Animals</button>
+    <button onclick="showCategory('Fruits')">Fruits</button>
+  </div>
+  <div id="content"></div>
+  <script>
+    const categories = {
+      Animals: [
+        { en: 'Cat', he: 'חתול', img: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Dog', he: 'כלב', img: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Elephant', he: 'פיל', img: 'https://images.unsplash.com/photo-1559070158-838d60189c7d?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Lion', he: 'אריה', img: 'https://images.unsplash.com/photo-1570018149210-69ec8427f9b9?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Monkey', he: 'קוף', img: 'https://images.unsplash.com/photo-1560742088-14c3c36059ba?auto=format&fit=crop&w=200&q=60' }
+      ],
+      Fruits: [
+        { en: 'Apple', he: 'תפוח', img: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Banana', he: 'בננה', img: 'https://images.unsplash.com/photo-1574226516831-e1dff420e13f?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Strawberry', he: 'תות', img: 'https://images.unsplash.com/photo-1438077483508-b2df7c6f99cc?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Orange', he: 'תפוז', img: 'https://images.unsplash.com/photo-1611080626919-7f6a15ffbe0c?auto=format&fit=crop&w=200&q=60' },
+        { en: 'Pineapple', he: 'אננס', img: 'https://images.unsplash.com/photo-1574226516831-e1dff420e13f?auto=format&fit=crop&w=200&q=60' }
+      ]
+    };
+
+    function speak(word) {
+      const msg = new SpeechSynthesisUtterance(word);
+      msg.lang = 'en-US';
+      speechSynthesis.speak(msg);
+    }
+
+    function showCategory(catName) {
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+      categories[catName].forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `<img src="${item.img}" onclick="speak('${item.en}')"><div class="label">${item.en} / ${item.he}</div>`;
+        content.appendChild(div);
+      });
+    }
+
+    showCategory('Animals');
+  </script>
+</body>
+</html>
